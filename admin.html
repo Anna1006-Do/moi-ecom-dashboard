@@ -2721,20 +2721,25 @@ function handleFiles(files){
         // Auto-save to Supabase Storage via Edge Function (server-side service role key)
         if(plat){
           const _slotEl = plat==='shopee'?document.getElementById('slotSp'):plat==='tiktok'?document.getElementById('slotTt'):document.getElementById('slot'+plat.charAt(0).toUpperCase()+plat.slice(1));
+          const _st = _slotEl ? _slotEl.querySelector('.st') : null;
+          if(_st) _st.textContent += ' ⏳ đang lưu...';
+          // Use e.target.result (already-read ArrayBuffer) — avoids File object re-read issues
           fetch('https://beldpzvcfstyednxkaiv.supabase.co/functions/v1/upload-excel', {
             method: 'POST',
             headers: { 'x-plat': plat, 'content-type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
-            body: file
+            body: e.target.result
           }).then(async r => {
+            const txt = await r.text();
             if(!r.ok){
-              const txt = await r.text();
+              if(_st) _st.textContent = _st.textContent.replace(' ⏳ đang lưu...','') + ' ✗ lỗi lưu';
               err.textContent = `⚠ Lưu "${file.name}" thất bại (${r.status}): ${txt}`;
               err.style.display = 'block';
             } else {
-              if(_slotEl){ const s=_slotEl.querySelector('.st'); if(s&&!s.textContent.includes('☁')) s.textContent+=' ☁ saved'; }
+              if(_st) _st.textContent = _st.textContent.replace(' ⏳ đang lưu...','') + ' ☁ saved';
             }
-          }).catch(e => {
-            err.textContent = `⚠ Network error khi lưu "${file.name}": ${e.message}`;
+          }).catch(ex => {
+            if(_st) _st.textContent = _st.textContent.replace(' ⏳ đang lưu...','') + ' ✗ network error';
+            err.textContent = `⚠ Network error khi lưu "${file.name}": ${ex.message}`;
             err.style.display = 'block';
           });
         }
