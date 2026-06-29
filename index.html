@@ -3020,7 +3020,7 @@ async function autoLoadFromStorage() {
 
   await Promise.all(types.map(async (type) => {
     try {
-      const url = `${SUPA_URL}/storage/v1/object/public/excel-uploads/uploads/${type}-latest.xlsx`;
+      const url = `${SUPA_URL}/storage/v1/object/public/excel-uploads/uploads/${type}-latest.xlsx?t=${Date.now()}`;
       const r = await fetch(url);
       if (!r.ok) return;
       const ab = await r.arrayBuffer();
