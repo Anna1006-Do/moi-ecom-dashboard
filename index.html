@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,6 +42,8 @@ select:disabled{opacity:.4;cursor:not-allowed}
 #reupload:hover,#shareBtn:hover{background:var(--pink-deep)}
 #shareBtn{background:var(--gold)}
 #shareBtn:hover{background:#B8903F}
+#langBtn{font-family:inherit;font-size:11px;font-weight:700;padding:6px 12px;border-radius:8px;border:1px solid rgba(212,96,122,.3);background:transparent;color:#D4607A;cursor:pointer;flex:none}
+#langBtn:hover{background:var(--pink-soft)}
 
 #uploadView{max-width:760px;margin:6vh auto;padding:0 20px;text-align:center}
 #dropzone{border:2px dashed var(--pink);border-radius:20px;background:var(--card);padding:46px 30px;cursor:pointer;transition:.2s}
@@ -224,34 +226,35 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:30px 0 10px}
     <div><h1>Commercial Review</h1><small>Shopee × TikTok Dashboard</small></div>
   </div>
   <div class="spacer"></div>
+  <button id="langBtn" onclick="toggleLang()">🇻🇳 VI</button>
   <div id="userChip">
     <div class="avatar" id="userAvatar">?</div>
     <span class="email-text" id="userEmail"></span>
     <button id="logoutBtn">Đăng xuất</button>
   </div>
   <div class="tabnav" id="tabnav" style="display:none">
-    <button data-tab="summary">📊 Summary</button>
-    <button data-tab="ecom" class="on">🛒 Ecom</button>
-    <button data-tab="media" class="on">📣 Media FB</button>
-    <button data-tab="mediatt" class="on">📱 Media TikTok</button>
-    <button data-tab="kol" class="on">🎯 KOL / Affiliate</button>
-    <button data-tab="demand" class="on">📦 Demand Plan</button>
-    <button data-tab="sa" class="on">🏪 SA Channel</button>
+    <button data-tab="summary" data-i18n="tab.summary">📊 Summary</button>
+    <button data-tab="ecom" class="on" data-i18n="tab.ecom">🛒 Ecom</button>
+    <button data-tab="media" class="on" data-i18n="tab.media">📣 Media FB</button>
+    <button data-tab="mediatt" class="on" data-i18n="tab.mediatt">📱 Media TikTok</button>
+    <button data-tab="kol" class="on" data-i18n="tab.kol">🎯 KOL / Affiliate</button>
+    <button data-tab="demand" class="on" data-i18n="tab.demand">📦 Demand Plan</button>
+    <button data-tab="sa" class="on" data-i18n="tab.sa">🏪 SA Channel</button>
   </div>
   <div class="filterbar" id="filterbar" style="display:none">
     <div class="seg" id="platSeg">
-      <button data-p="both">Both platforms</button>
+      <button data-p="both" data-i18n="filter.both">Both platforms</button>
       <button data-p="shopee">Shopee</button>
       <button data-p="tiktok">TikTok</button>
     </div>
-    <label>From</label>
+    <label data-i18n="filter.from">From</label>
     <select id="fromM"></select><select id="fromY"></select>
-    <label>To</label>
+    <label data-i18n="filter.to">To</label>
     <select id="toM"></select><select id="toY"></select>
     <div class="quick">
-      <button data-q="last">Latest Month</button>
-      <button data-q="3m">3 Months</button>
-      <button data-q="all" class="on">All</button>
+      <button data-q="last" data-i18n="filter.latest">Latest Month</button>
+      <button data-q="3m" data-i18n="filter.3m">3 Months</button>
+      <button data-q="all" class="on" data-i18n="filter.all">All</button>
     </div>
     <button id="shareBtn">📤 Share</button>
   </div>
@@ -376,7 +379,7 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:30px 0 10px}
     <div class="kpis" id="sumKpis" style="margin-bottom:18px"></div>
     <div class="grid2" style="margin-bottom:18px">
       <div class="card">
-        <div class="section-title">Total NMV — All Channels <span class="tag" id="sumRangeTag">Jan–Jun 2026</span></div>
+        <div class="section-title"><span data-i18n="sum.totalNmv">Total NMV — All Channels</span> <span class="tag" id="sumRangeTag">Jan–Jun 2026</span></div>
         <div class="chartbox" style="height:240px"><canvas id="chSumTotal"></canvas></div>
         <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:10px;margin-top:10px">
           <span style="color:#9A7A82;display:flex;align-items:center;gap:4px"><span style="display:inline-block;width:10px;height:10px;background:#B8D8CF;border-radius:2px"></span>Target NMV</span>
@@ -385,7 +388,7 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:30px 0 10px}
         </div>
       </div>
       <div class="card">
-        <div class="section-title">NMV Mix by Channel <span class="tag" id="sumMixTag">Selected Period</span></div>
+        <div class="section-title"><span data-i18n="sum.nmvMix">NMV Mix by Channel</span> <span class="tag" id="sumMixTag">Selected Period</span></div>
         <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px" id="sumPieBtns"></div>
         <div class="chartbox" style="height:200px"><canvas id="chSumPie"></canvas></div>
         <div style="font-size:10px;color:#9A7A82;margin-top:6px">Source: P&amp;L Tracking Jan–Jun 2026</div>
@@ -393,21 +396,21 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:30px 0 10px}
     </div>
     <div class="grid2" style="margin-bottom:18px">
       <div class="card">
-        <div class="section-title">SA Channel — Target vs Actual <span class="tag">NMV (₫B)</span></div>
+        <div class="section-title"><span data-i18n="sum.sa">SA Channel — Target vs Actual</span> <span class="tag">NMV (₫B)</span></div>
         <div class="chartbox" style="height:220px"><canvas id="chSumSA"></canvas></div>
       </div>
       <div class="card">
-        <div class="section-title">Ecom Channel — Target vs Actual <span class="tag">NMV (₫B)</span></div>
+        <div class="section-title"><span data-i18n="sum.ecom">Ecom Channel — Target vs Actual</span> <span class="tag">NMV (₫B)</span></div>
         <div class="chartbox" style="height:220px"><canvas id="chSumEcom"></canvas></div>
       </div>
     </div>
     <div class="grid2" style="margin-bottom:18px">
       <div class="card">
-        <div class="section-title">MT Channel — Target vs Actual <span class="tag">NMV (₫B)</span></div>
+        <div class="section-title"><span data-i18n="sum.mt">MT Channel — Target vs Actual</span> <span class="tag">NMV (₫B)</span></div>
         <div class="chartbox" style="height:220px"><canvas id="chSumMT"></canvas></div>
       </div>
       <div class="card" style="display:flex;flex-direction:column">
-        <div class="section-title" style="margin-bottom:8px">Performance Highlights <span class="tag">Auto-generated + Editable</span></div>
+        <div class="section-title" style="margin-bottom:8px"><span data-i18n="sum.highlights">Performance Highlights</span> <span class="tag">Auto-generated + Editable</span></div>
         <div id="sumAutoInsights" style="font-size:12px;line-height:1.75;color:#3D3D3D;border-bottom:1px solid #F5D4DE;padding-bottom:10px;margin-bottom:8px;flex:1"></div>
         <div style="font-size:10px;color:#D4607A;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px">Additional Notes (editable)</div>
         <textarea id="sumNotes" placeholder="Add strategic notes here…" style="font-family:inherit;font-size:12px;border:1px solid #F5B8CB;border-radius:8px;padding:10px;resize:vertical;min-height:80px;color:#3D3D3D;background:#FFF5F8;outline:none;line-height:1.6;width:100%"></textarea>
@@ -419,14 +422,14 @@ footer{text-align:center;color:var(--muted);font-size:11px;padding:30px 0 10px}
 
 <div id="viewerLoading" style="display:none;align-items:center;justify-content:center;min-height:60vh;flex-direction:column;gap:16px">
   <div style="font-size:32px">⏳</div>
-  <div style="font-size:14px;font-weight:700;color:#D4607A">Đang tải dữ liệu mới nhất…</div>
-  <div style="font-size:12px;color:#9A7A82">Lấy file từ server, vui lòng chờ</div>
+  <div style="font-size:14px;font-weight:700;color:#D4607A" data-i18n="loading.title">Loading latest data…</div>
+  <div style="font-size:12px;color:#9A7A82" data-i18n="loading.sub">Fetching from server, please wait</div>
 </div>
 
 <div id="noDataMsg" style="display:none;align-items:center;justify-content:center;min-height:60vh;flex-direction:column;gap:16px;text-align:center;padding:20px">
   <div style="font-size:40px">📭</div>
-  <div style="font-size:16px;font-weight:800;color:#D4607A">Chưa có dữ liệu</div>
-  <div style="font-size:13px;color:#9A7A82;max-width:340px;line-height:1.7">Dữ liệu đang được cập nhật.<br>Vui lòng quay lại sau.</div>
+  <div style="font-size:16px;font-weight:800;color:#D4607A" data-i18n="nodata.title">No Data Available</div>
+  <div style="font-size:13px;color:#9A7A82;max-width:340px;line-height:1.7" data-i18n-html="nodata.sub">Data is being updated.<br>Please check back later.</div>
 </div>
 
 <script id="EMBED" type="application/json">null</script>
@@ -3044,6 +3047,46 @@ async function autoLoadFromStorage() {
     if (noData) noData.style.display = 'flex';
   }
 }
+
+/* =====================  i18n  ===================== */
+const TRANSLATIONS = {
+  en: {
+    'tab.summary':'📊 Summary','tab.ecom':'🛒 Ecom','tab.media':'📣 Media FB',
+    'tab.mediatt':'📱 Media TikTok','tab.kol':'🎯 KOL / Affiliate',
+    'tab.demand':'📦 Demand Plan','tab.sa':'🏪 SA Channel',
+    'filter.both':'Both platforms','filter.from':'From','filter.to':'To',
+    'filter.latest':'Latest Month','filter.3m':'3 Months','filter.all':'All',
+    'loading.title':'Loading latest data…','loading.sub':'Fetching from server, please wait',
+    'nodata.title':'No Data Available','nodata.sub':'Data is being updated.<br>Please check back later.',
+    'sum.totalNmv':'Total NMV — All Channels','sum.nmvMix':'NMV Mix by Channel',
+    'sum.sa':'SA Channel — Target vs Actual','sum.ecom':'Ecom Channel — Target vs Actual',
+    'sum.mt':'MT Channel — Target vs Actual','sum.highlights':'Performance Highlights',
+  },
+  vi: {
+    'tab.summary':'📊 Tổng Quan','tab.ecom':'🛒 Ecom','tab.media':'📣 Media FB',
+    'tab.mediatt':'📱 Media TikTok','tab.kol':'🎯 KOL / Affiliate',
+    'tab.demand':'📦 Kế Hoạch','tab.sa':'🏪 Kênh SA',
+    'filter.both':'Cả hai sàn','filter.from':'Từ','filter.to':'Đến',
+    'filter.latest':'Tháng gần nhất','filter.3m':'3 Tháng','filter.all':'Tất cả',
+    'loading.title':'Đang tải dữ liệu mới nhất…','loading.sub':'Lấy file từ server, vui lòng chờ',
+    'nodata.title':'Chưa có dữ liệu','nodata.sub':'Dữ liệu đang được cập nhật.<br>Vui lòng quay lại sau.',
+    'sum.totalNmv':'Tổng NMV — Tất Cả Kênh','sum.nmvMix':'Tỷ Trọng NMV theo Kênh',
+    'sum.sa':'Kênh SA — Mục Tiêu vs Thực Tế','sum.ecom':'Kênh Ecom — Mục Tiêu vs Thực Tế',
+    'sum.mt':'Kênh MT — Mục Tiêu vs Thực Tế','sum.highlights':'Điểm Nổi Bật',
+  }
+};
+let LANG = localStorage.getItem('moi_lang') || 'en';
+function t(key){ return (TRANSLATIONS[LANG]&&TRANSLATIONS[LANG][key]) || (TRANSLATIONS.en[key]) || key; }
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{ el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{ el.innerHTML = t(el.dataset.i18nHtml); });
+  const btn = document.getElementById('langBtn');
+  if(btn) btn.textContent = LANG==='en' ? '🇻🇳 VI' : '🇬🇧 EN';
+  document.documentElement.lang = LANG;
+  localStorage.setItem('moi_lang', LANG);
+}
+function toggleLang(){ LANG = LANG==='en' ? 'vi' : 'en'; applyLang(); }
+applyLang();
 
 // Load data from storage on page load
 autoLoadFromStorage();
